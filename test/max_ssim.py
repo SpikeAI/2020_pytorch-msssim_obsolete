@@ -1,7 +1,7 @@
 from pytorch_msssim import msssim, ssim
 import torch
 from torch import optim
-from scipy.misc import imread
+from matplotlib.pyplot import imread
 import numpy as np
 
 # display = True requires matplotlib

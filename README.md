@@ -7,19 +7,20 @@ At the moment only a direct method is supported.
 
 ## Installation
 
-Master branch now only supports PyTorch 1.2 or higher. All development occurs in the dev branch (`git checkout dev` after cloning the repository to get the latest development version).
-
 To install the current version of pytorch_mssim:
 
 1. Clone this repo.
 2. Go to the repo directory.
-3. Run `python setup.py install`
+3. Run `python3 -m pip install -e .`
 
 or
 
 1. Clone this repo.
 2. Copy "pytorch_msssim" folder in your project.
 
+or
+
+1. `python3 -m pip install git+https://github.com/SpikeAI/pytorch-msssim`
 
 
 ## Example
@@ -30,27 +31,27 @@ import pytorch_msssim
 import torch
 from torch.autograd import Variable
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-m = pytorch_msssim.MSSSIM()
+m = pytorch_msssim.NMSSSIM(val_range=1., normalize=True)
 
 img1 = torch.rand(1, 1, 256, 256)
 img2 = torch.rand(1, 1, 256, 256)
 
-print(pytorch_msssim.msssim(img1, img2))
-print(m(img1, img2))
+print('direct call to MSSSIM:', pytorch_msssim.msssim(img1, img2))
+print('Negative MSSSIM as a (derivable) function:', m(img1, img2))
 
 
 ```
 
 ### Training
 
-For a detailed example on how to use msssim for training, look at the file max_ssim.py.
+For a detailed example on how to use `msssim` for training, look at the file `test/max_ssim.py`.
 
-We recommend using the flag normalized=True when training unstable models using MS-SSIM (for example, Generative Adversarial Networks) as it will guarantee that at the start of the training procedure, the MS-SSIM will not provide NaN results.
+We recommend using the flag `normalized=True` when training unstable models using MS-SSIM (for example, Generative Adversarial Networks) as it will guarantee that at the start of the training procedure, the MS-SSIM will not provide NaN results.
 
 ## Reference
+
 https://ece.uwaterloo.ca/~z70wang/research/ssim/
 
 https://github.com/Po-Hsun-Su/pytorch-ssim
 
-Thanks to z70wang for providing the initial SSIM implementation and all the contributors with fixes to this fork.
+Thanks to @z70wang for providing the initial SSIM implementation and all the contributors with fixes to this fork and @jorge-pessoa for continuing this work.

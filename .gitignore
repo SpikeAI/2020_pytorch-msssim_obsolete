@@ -2,9 +2,9 @@
 *.gif
 *.png
 *.jpg
-test*
 !einstein.png
 !max_ssim.gif
 MANIFEST
 dist/*
 .sync-config.cson
+pytorch_msssim.egg-info
