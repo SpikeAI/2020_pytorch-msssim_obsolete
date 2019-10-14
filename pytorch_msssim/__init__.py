@@ -1,3 +1,7 @@
+# copied from https://github.com/jorge-pessoa/pytorch-msssim/blob/master/pytorch_msssim/__init__.py
+# An alternative measure to the MSE, based on
+# Z. Wang, A. C. Bovik, H. R. Sheikh and E. P. Simoncelli, "Image quality assessment: From error visibility to structural similarity," IEEE Transactions on Image Processing, vol. 13, no. 4, pp. 600-612, Apr. 2004.
+# https://ece.uwaterloo.ca/~z70wang/publications/ssim.html
 import torch
 import torch.nn.functional as F
 from math import exp
@@ -121,13 +125,15 @@ class SSIM(torch.nn.Module):
 
         return ssim(img1, img2, window=window, window_size=self.window_size, size_average=self.size_average)
 
-class MSSSIM(torch.nn.Module):
-    def __init__(self, window_size=11, size_average=True, channel=3):
-        super(MSSSIM, self).__init__()
+class NMSSSIM(torch.nn.Module):
+    def __init__(self, window_size=11, size_average=True, channel=3, val_range=None, normalize=False):
+        super(NMSSSIM, self).__init__()
         self.window_size = window_size
         self.size_average = size_average
         self.channel = channel
+        self.normalize = normalize
+        self.val_range = val_range
 
     def forward(self, img1, img2):
         # TODO: store window between calls if possible
-        return msssim(img1, img2, window_size=self.window_size, size_average=self.size_average)
+        return 1.-msssim(img1, img2, window_size=self.window_size, size_average=self.size_average, val_range=self.val_range, normalize=self.normalize)

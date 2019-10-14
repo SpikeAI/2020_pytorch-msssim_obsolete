@@ -1,13 +1,13 @@
 # pytorch-msssim
 
-### Differentiable Multi-Scale Structural Similarity (SSIM) index 
+### Differentiable Multi-Scale Structural Similarity (SSIM) index
 
-This small utiliy provides a differentiable MS-SSIM implementation for PyTorch based on Po Hsun Su's implementation of SSIM @ https://github.com/Po-Hsun-Su/pytorch-ssim.
+This small utiliy provides a differentiable MS-SSIM implementation for PyTorch based on Po Hsun Su's implementation of SSIM @ https://github.com/Po-Hsun-Su/pytorch-ssim. I provide asmall changes compared to the method provided by [Jorge Pessoa](https://github.com/jorge-pessoa/pytorch-msssim).
 At the moment only a direct method is supported.
 
 ## Installation
 
-Master branch now only supports PyTorch 0.4 or higher. All development occurs in the dev branch (`git checkout dev` after cloning the repository to get the latest development version).
+Master branch now only supports PyTorch 1.2 or higher. All development occurs in the dev branch (`git checkout dev` after cloning the repository to get the latest development version).
 
 To install the current version of pytorch_mssim:
 
@@ -15,17 +15,12 @@ To install the current version of pytorch_mssim:
 2. Go to the repo directory.
 3. Run `python setup.py install`
 
-or 
+or
 
 1. Clone this repo.
 2. Copy "pytorch_msssim" folder in your project.
 
-To install a version of of pytorch_mssim that runs in PyTorch 0.3.1 or lower use the tag checkpoint-0.3. To do so, run the following commands after cloning the repository:
 
-```
-git fetch --all --tags
-git checkout tags/checkpoint-0.3
-```
 
 ## Example
 
