@@ -13,28 +13,28 @@ def gaussian(window_size, sigma):
     return gauss/gauss.sum()
 
 
-def create_window(window_size, channel=1):
-    _1D_window = gaussian(window_size, 1.5).unsqueeze(1)
+def create_window(window_size, sigma=1.5, channel=1):
+    _1D_window = gaussian(window_size, sigma).unsqueeze(1)
     _2D_window = _1D_window.mm(_1D_window.t()).float().unsqueeze(0).unsqueeze(0)
     window = _2D_window.expand(channel, 1, window_size, window_size).contiguous()
     return window
 
 
-def ssim(img1, img2, window_size=11, window=None, size_average=True, full=False, val_range=None):
+def ssim(img1, img2, window_size=11, window=None, size_average=True, full=False, val_range=1.):
     # Value range can be different from 255. Other common ranges are 1 (sigmoid) and 2 (tanh).
-    if val_range is None:
-        if torch.max(img1) > 128:
-            max_val = 255
-        else:
-            max_val = 1
-
-        if torch.min(img1) < -0.5:
-            min_val = -1
-        else:
-            min_val = 0
-        L = max_val - min_val
-    else:
-        L = val_range
+    # if False :val_range is None:
+    #     if torch.max(img1) > 128:
+    #         max_val = 255
+    #     else:
+    #         max_val = 1
+    #
+    #     if torch.min(img1) < -0.5:
+    #         min_val = -1
+    #     else:
+    #         min_val = 0
+    #     L = max_val - min_val
+    # else:
+    L = val_range
 
     padd = 0
     (_, channel, height, width) = img1.size()
@@ -72,7 +72,7 @@ def ssim(img1, img2, window_size=11, window=None, size_average=True, full=False,
     return ret
 
 
-def msssim(img1, img2, window_size=11, size_average=True, val_range=None, normalize=False):
+def msssim(img1, img2, window_size=11, size_average=True, val_range=1., normalize=False):
     device = img1.device
     weights = torch.FloatTensor([0.0448, 0.2856, 0.3001, 0.2363, 0.1333]).to(device)
     levels = weights.size()[0]
