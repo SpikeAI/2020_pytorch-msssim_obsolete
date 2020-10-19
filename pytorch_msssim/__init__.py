@@ -125,6 +125,22 @@ class SSIM(torch.nn.Module):
 
         return ssim(img1, img2, window=window, window_size=self.window_size, size_average=self.size_average)
 
+class NSSIM(SSIM):
+    def __init__(self, window_size=11, size_average=True, val_range=None):
+        super(NSSIM, self).__init__(window_size=window_size, size_average=size_average, val_range=val_range)
+
+    def forward(self, img1, img2):
+        (_, channel, _, _) = img1.size()
+
+        if channel == self.channel and self.window.dtype == img1.dtype:
+            window = self.window
+        else:
+            window = create_window(self.window_size, channel).to(img1.device).type(img1.dtype)
+            self.window = window
+            self.channel = channel
+
+        return 1.-ssim(img1, img2, window=window, window_size=self.window_size, size_average=self.size_average)
+
 class NMSSSIM(torch.nn.Module):
     def __init__(self, window_size=11, size_average=True, channel=3, val_range=None, normalize=False):
         super(NMSSSIM, self).__init__()
