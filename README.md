@@ -1,6 +1,9 @@
+
+WARNING: this library has been superseded by https://github.com/VainF/pytorch-msssim
+
+
 # pytorch-msssim
 
-TODO: compare with https://github.com/VainF/pytorch-msssim
 
 ### Differentiable Multi-Scale Structural Similarity (SSIM) index
 
