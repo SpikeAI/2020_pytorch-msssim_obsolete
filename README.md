@@ -53,7 +53,7 @@ For a detailed example on how to use msssim for optimization, take a look at the
 
 ### Stability and normalization
 
-MS-SSIM is a particularly unstable metric when used for some architectures and may result in NaN values early on during the training. The msssim method provides a normalize attribute to help in these cases. There are three possible values. We recommend using the value normalized="relu" when training. 
+MS-SSIM is a particularly unstable metric when used for some architectures and may result in NaN values early on during the training. The msssim method provides a normalize attribute to help in these cases. There are three possible values. We recommend using the value normalize="relu" when training. 
 
 - None : no normalization method is used and should be used for evaluation
 - "relu" : the `ssim`and `mc` values of each level during the calculation are rectified using a relu ensuring that negative values are zeroed
